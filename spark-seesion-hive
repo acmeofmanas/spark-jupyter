@@ -1,0 +1,42 @@
+#local mode
+import pyspark
+from pyspark.sql import SparkSession
+spark = SparkSession.builder \
+      .master("local[1]") \
+      .appName("SparkByExample") \
+      .getOrCreate()
+dataframe = spark.read.csv('./kddcup.data_10_percent.gz')
+dataframe.show(10)
+
+# note: must copy the './kddcup.data_10_percent.gz' file into ur hdfs home dir
+
+#default mode
+import pandas as pd
+import numpy as np
+from datetime import date, timedelta, datetime
+import time
+
+import pyspark # only run this after findspark.init()
+from pyspark.sql import SparkSession, SQLContext
+from pyspark.context import SparkContext
+from pyspark.sql.functions import * 
+from pyspark.sql.types import * 
+
+sc = SparkSession.builder.appName("PysparkExample").config ("spark.sql.shuffle.partitions", "50").config("spark.driver.maxResultSize","5g").config ("spark.sql.execution.arrow.enabled", "true").getOrCreate()
+
+dataframe = sc.read.csv('./kddcup.data_10_percent.gz')
+
+dataframe.show(10)
+
+# yarn mode with random DF
+import pyspark
+from pyspark.sql import SparkSession
+spark = SparkSession.builder \
+      .master("yarn") \
+      .appName("SparkTest") \
+      .getOrCreate()
+
+df = spark.createDataFrame(
+    [("Scala", 25000), ("Spark", 35000), ("PHP", 21000)])
+df.show()
+
