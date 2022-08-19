@@ -1,4 +1,4 @@
-** # set variable and run spark query from notebook
+***#set variable and run spark query from notebook*** 
 export PYSPARK_PYTHON=/data/conda/bin/python
 
 launch python from cli or from notebook
